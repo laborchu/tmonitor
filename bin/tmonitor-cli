@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+'use strict';
+var program = require('commander');
+var pkg = require('../package');
+var execSync = require('child_process').execSync;
+
+var Logger = require('../lib/logger');
+var GetHandler = require('../lib/handler/get.handler');
+var Logger = require('../lib/logger');
+
+var hanlder = null;
+program
+  .version(pkg.version)
+  .option('--verbose', 'more debug info');
+
+program
+  .command('get')
+  .description('get task')
+  .option("-d, --dtoken [dtoken]", "dingding token")
+  .option("-g, --gtoken [gtoken]", "gitee token")
+  .action(function (options) {
+    hanlder = new GetHandler({
+      dtoken:options.dtoken,
+      gtoken:options.gtoken,
+    });
+  });
+
+program.parse(process.argv);
+
+let exeStr = `npm view ${pkg.name} version`;
+// let npmVersion = execSync(exeStr).toString();
+// if (npmVersion &&  pkg.version !== npmVersion.trim()) {
+//   Logger.info(`version ${pkg.version} is outdate`);
+//   Logger.info(`run: npm i -g ${pkg.name}@${npmVersion}`);
+//   return;
+// }
+
+if (!hanlder) {
+  var cmd = program.args[0];
+  if (cmd !== undefined) {
+    Logger.error(`command ${cmd} not found`);
+  }
+  program.help();
+  return;
+}
+
+hanlder.do();

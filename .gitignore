@@ -1,0 +1,8 @@
+node_modules
+coverage
+.DS_Store
+*.iml
+.gcoder
+package-lock.json
+.history
+.vscode/

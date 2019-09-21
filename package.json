@@ -1,0 +1,34 @@
+{
+  "name": "tmonitor",
+  "version": "0.0.1",
+  "description": "任务监听器",
+  "homepage": "https://github.com/laborchu/tmonitor",
+  "author": {
+    "name": "hulb",
+    "email": "laborc2009@gmail.com",
+    "url": "https://github.com/laborchu"
+  },
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "code generator"
+  ],
+  "bin": {
+    "tmonitor": "./bin/tmonitor-cli"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "class-extend": "^0.1.2",
+    "commander": "^2.9.0",
+    "ding-robot": "^1.0.0",
+    "es6-template-string": "^1.1.0",
+    "lodash": "^4.17.4",
+    "mkdirp": "^0.5.1",
+    "mysql": "^2.15.0",
+    "ncp": "^2.0.0",
+    "npm-update": "~1.0.2",
+    "puppeteer": "^1.20.0",
+    "simple-git": "^1.85.0"
+  },
+  "license": "Apache-2.0"
+}
