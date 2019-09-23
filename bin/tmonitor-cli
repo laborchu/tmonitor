@@ -6,7 +6,8 @@ var pkg = require('../package');
 var execSync = require('child_process').execSync;
 
 var Logger = require('../lib/logger');
-var GetHandler = require('../lib/handler/get.handler');
+var GetHandler = require('../lib/handler/issue.handler');
+var PrHandler = require('../lib/handler/pr.handler');
 var Logger = require('../lib/logger');
 
 var hanlder = null;
@@ -15,7 +16,7 @@ program
   .option('--verbose', 'more debug info');
 
 program
-  .command('get')
+  .command('issues')
   .description('get task')
   .option("-d, --dtoken [dtoken]", "dingding token")
   .option("-g, --gtoken [gtoken]", "gitee token")
@@ -25,6 +26,20 @@ program
       gtoken:options.gtoken,
     });
   });
+
+program
+.command('pr')
+.description('get pull request')
+.option("-d, --dtoken [dtoken]", "dingding token")
+.option("-g, --gtoken [gtoken]", "gitee token")
+.option("-p, --projects [projects]", "gitee projects")
+.action(function (options) {
+  hanlder = new PrHandler({
+    dtoken:options.dtoken,
+    gtoken:options.gtoken,
+    projects:options.projects,
+  });
+});
 
 program.parse(process.argv);
 
