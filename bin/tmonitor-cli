@@ -19,11 +19,13 @@ program
   .command('issues')
   .description('get task')
   .option("-d, --dtoken [dtoken]", "dingding token")
-  .option("-g, --gtoken [gtoken]", "gitee token")
+  .option("-r, --repo [repo]", "gitee repo")
+  .option("-t, --title [title]", "gitee title")
   .action(function (options) {
     hanlder = new GetHandler({
       dtoken:options.dtoken,
-      gtoken:options.gtoken,
+      repo:options.repo,
+      title:options.title,
     });
   });
 
@@ -31,12 +33,12 @@ program
 .command('pr')
 .description('get pull request')
 .option("-d, --dtoken [dtoken]", "dingding token")
-.option("-g, --gtoken [gtoken]", "gitee token")
+.option("-r, --repo [repo]", "gitee repo")
 .option("-p, --projects [projects]", "gitee projects")
 .action(function (options) {
   hanlder = new PrHandler({
     dtoken:options.dtoken,
-    gtoken:options.gtoken,
+    repo:options.repo,
     projects:options.projects,
   });
 });
@@ -44,12 +46,12 @@ program
 program.parse(process.argv);
 
 let exeStr = `npm view ${pkg.name} version`;
-// let npmVersion = execSync(exeStr).toString();
-// if (npmVersion &&  pkg.version !== npmVersion.trim()) {
-//   Logger.info(`version ${pkg.version} is outdate`);
-//   Logger.info(`run: npm i -g ${pkg.name}@${npmVersion}`);
-//   return;
-// }
+let npmVersion = execSync(exeStr).toString();
+if (npmVersion &&  pkg.version !== npmVersion.trim()) {
+  Logger.info(`version ${pkg.version} is outdate`);
+  Logger.info(`run: npm i -g ${pkg.name}@${npmVersion}`);
+  return;
+}
 
 if (!hanlder) {
   var cmd = program.args[0];
